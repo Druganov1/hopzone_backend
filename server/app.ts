@@ -52,13 +52,6 @@ const app = express(),
         allowEIO3: true,
       })
 
-      io.on('connection', socket => {
-        console.info(`New connection: ${socket.id}`)
-        socket.on('disconnect', () => {
-          console.info(`Disconnected: ${socket.id}`)
-        })
-      })
-
       io.use(authMiddleware)
       io.use(loggingMiddleware)
 
@@ -67,7 +60,13 @@ const app = express(),
       socketServer.enableListeners()
 
       httpServer.listen(port, () => {
-        console.info(`The socket IO server is listening on port ${port}`)
+        console.info(`The socket IO server is listening on port ${port} :)`)
+        io.on('connection', socket => {
+          console.info(`New connection: ${socket.id}`)
+          socket.on('disconnect', () => {
+            console.info(`Disconnected: ${socket.id}`)
+          })
+        })
       })
     })
     .catch(ex => console.log(ex))
