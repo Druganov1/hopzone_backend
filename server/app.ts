@@ -61,12 +61,7 @@ const app = express(),
 
       httpServer.listen(port, () => {
         console.info(`The socket IO server is listening on port ${port} :)`)
-        io.on('connection', socket => {
-          console.info(`New connection: ${socket.id}`)
-          socket.on('disconnect', () => {
-            console.info(`Disconnected: ${socket.id}`)
-          })
-        })
+        console.info(io)
       })
     })
     .catch(ex => console.log(ex))
