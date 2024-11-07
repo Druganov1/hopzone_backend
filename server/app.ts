@@ -61,7 +61,10 @@ const app = express(),
 
       httpServer.listen(port, () => {
         console.info(`The socket IO server is listening on port ${port} :)`)
-        console.info(io)
+        io.use((socket, next) => {
+          console.log(socket.request.headers) // Log headers to debug any issues
+          next()
+        })
       })
     })
     .catch(ex => console.log(ex))
