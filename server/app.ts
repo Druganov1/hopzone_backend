@@ -52,6 +52,13 @@ const app = express(),
         allowEIO3: true,
       })
 
+      io.on('connection', socket => {
+        console.log(`New connection: ${socket.id}`)
+        socket.on('disconnect', () => {
+          console.log(`Disconnected: ${socket.id}`)
+        })
+      })
+
       io.use(authMiddleware)
       io.use(loggingMiddleware)
 
