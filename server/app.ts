@@ -53,9 +53,9 @@ const app = express(),
       })
 
       io.on('connection', socket => {
-        console.log(`New connection: ${socket.id}`)
+        console.info(`New connection: ${socket.id}`)
         socket.on('disconnect', () => {
-          console.log(`Disconnected: ${socket.id}`)
+          console.info(`Disconnected: ${socket.id}`)
         })
       })
 
