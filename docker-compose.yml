@@ -1,0 +1,28 @@
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+      - 27018:27018
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: lolnuggetChicken
+    volumes:
+      - hopzone_db:/data/db
+  api:
+    image: hopzone.azurecr.io/backend
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    env_file:
+      - docker.env
+    ports:
+      - 3001:3001
+
+volumes:
+  hopzone_db:
